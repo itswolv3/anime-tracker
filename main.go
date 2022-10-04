@@ -7,9 +7,10 @@ import (
 )
 
 type Anime struct {
-	name      string
-	episode   int
-	directory string
+	name       string
+	episodeNum string
+	directory  string
+	episodes   []string
 }
 
 func main() {
@@ -17,16 +18,21 @@ func main() {
 
 	var dir string
 	var objName string
+	var ep string
 	fmt.Println("Please enter dir:")
 	fmt.Scan(&dir)
 	fmt.Println("Please enter name:")
 	fmt.Scan(&objName)
+	fmt.Println("Episode:")
+	fmt.Scan(&ep)
 
-	newFile := getUserInfo(dir, objName)
-	fmt.Println(newFile)
+	x := getUserInfo(dir, objName, ep)
+	fmt.Println(x.name)
+	fmt.Println(x.episodeNum)
+	fmt.Println(x.directory)
+	fmt.Println(x.episodes)
 }
-
-func getUserInfo(dir, name string) []string {
+func getUserInfo(dir, name, episode string) Anime {
 
 	slc := []string{}
 
@@ -39,5 +45,7 @@ func getUserInfo(dir, name string) []string {
 		slc = append(slc, file.Name())
 	}
 
-	return slc
+	item := Anime{name, episode, dir, slc}
+
+	return item
 }
